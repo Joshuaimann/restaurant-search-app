@@ -21,13 +21,11 @@ const SearchBar = (props) => {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    backgroundColor: "#DCDCDC",
-    borderWidth: 1,
-    borderColor: "black",
+    backgroundColor: "rgb(230,230,230)",
     borderRadius: 5,
     paddingHorizontal: 5,
     marginVertical: 15,
-    marginRight: 20,
+    marginHorizontal: 20,
     paddingVertical: 3,
     height: 50,
     display: "flex",

@@ -1,9 +1,16 @@
-import { View, StyleSheet, Text, FlatList, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import { withNavigation } from "react-navigation";
+import RestaurantDetail from "./RestaurantDetail";
 
-const RestaurantsList = ({ title, data }) => {
-    return (
-      
-    <View>
+const RestaurantsList = ({ title, data, navigation }) => {
+  return (
+    <View style={styles.container}>
       <Text style={styles.titleStyle}>{title}</Text>
       <FlatList
         data={data}
@@ -12,18 +19,14 @@ const RestaurantsList = ({ title, data }) => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
-            <View style={styles.containerStyle}>
-              <Image
-                style={styles.imageStyle}
-                source={{
-                  uri: `${item.image_url}`,
-                }}
+            <TouchableOpacity onPress={() => navigation.navigate("Restaurant", {id: item.id})}>
+              <RestaurantDetail
+                name={item.name}
+                image={item.image_url}
+                review_count={item.review_count}
+                rating={item.rating}
               />
-              <Text style={styles.subHeaderStyle}>{item.name}</Text>
-              <Text
-                style={styles.textStyle}
-              >{`${item.rating} Stars, ${item.review_count} Reviews`}</Text>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />
@@ -34,28 +37,10 @@ const RestaurantsList = ({ title, data }) => {
 const styles = StyleSheet.create({
   titleStyle: {
     fontSize: 20,
-        fontWeight: "bold",
-    marginBottom: 5
-  },
-  subHeaderStyle: {
-    fontSize: 15,
     fontWeight: "bold",
-    marginTop: 10,
-  },
-  textStyle: {
-    fontSize: 13,
-    color: "grey",
-  },
-  containerStyle: {
-    height: 195,
-    width: 250,
-    display: "flex",
-    marginRight: 30,
-  },
-  imageStyle: {
-    backgroundColor: "red",
-    height: 150,
+    marginBottom: 5,
+    marginLeft: 20,
   },
 });
 
-export default RestaurantsList;
+export default withNavigation(RestaurantsList);
